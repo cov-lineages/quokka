@@ -12,6 +12,11 @@ QUality Of Known Klusters Assessed
 - check monophyly within a tree (figtree2, usher and nextclade), or within updown-topranking gofasta
 - check decision tree for each lineage, see if any conflicting decisions or any that dont seem to fit
 - get 95% consensus of a lineage, check if outliers and remove
+- Do all records on pango-designation match the gisaid metadata file? If not which ones and why (e.g. misspellings, or wrong year etc).
+- Do all lineages have records?
+- Are there sequences designated a lineage that scorpio disagrees with?
+- Are there sequences that are in the metadata that scorpio calls that we should
+- Do all sequences in a certain lineage have the set of mutations that they should have? Are there ones that really stick out?
 
 ### Lineage discovery
 
