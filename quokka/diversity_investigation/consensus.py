@@ -10,4 +10,5 @@ def get_95_cns(seq_file,cns_threshold=0.7):
     ambiguous='N')
     return cns
 
+
 print(get_95_cns("sequences.aln.fasta"))
