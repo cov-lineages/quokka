@@ -17,6 +17,7 @@ QUality Of Known Klusters Assessed
 - Are there sequences designated a lineage that scorpio disagrees with?
 - Are there sequences that are in the metadata that scorpio calls that we should
 - Do all sequences in a certain lineage have the set of mutations that they should have? Are there ones that really stick out?
+- Primer sites/ problematic sites check
 
 ### Lineage discovery
 
