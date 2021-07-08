@@ -1,0 +1,63 @@
+import Bio
+import pandas as pd
+import csv
+
+from Bio import SeqIO
+from Bio.Seq import Seq
+from Bio import AlignIO
+from Bio.Align.AlignInfo import SummaryInfo
+
+primers = pd.read_csv('COVID_primer.bed.txt', sep='\t', comment='t', header=None)
+del primers[0]
+header = ['start', 'end', '2', '3', 'direction', 'sequence']
+primers.columns = header[:len(primers.columns)]
+primers.head()
+
+## load in reference sequence
+reference_seq = SeqIO.read("reference_sequence.fasta.txt", "fasta")
+
+def get_95_cns(seq_file,cns_threshold=0.95):
+    alignment = AlignIO.read(seq_file, "fasta")
+    info = SummaryInfo(alignment)
+    cns =  info.gap_consensus(
+    threshold=cns_threshold, 
+    ambiguous='N')
+    return cns
+
+consensus_sequence = get_95_cns("lineage_sequences.fasta", cns_threshold = 0.95)
+## get the 95% consensus sequence for given lineage
+
+def compare_ref_with_consensus(reference_sequence, consensus_sequence):
+    nuc_position = []
+    reference_nuc = []
+    lineage_nuc = []
+
+    for i in range(len(consensus_sequence)):
+        if reference_sequence[i] != "N" and consensus_sequence[i] != "N":
+            if consensus_sequence[i] != reference_sequence[i]:
+                nuc_position.append(i)
+                reference_nuc.append(reference_sequence[i])
+                lineage_nuc.append(consensus_sequence[i])
+    
+    defining_mutations = pd.DataFrame(
+    {'nucleotide_position': nuc_position,
+     'reference_nucleotide': reference_nuc,
+     'lineage_nucleotide': lineage_nuc
+    })
+    
+    return(defining_mutations)
+###
+# gives a dataframe of the differences between reference and consensus, inc nucleotide position
+
+
+def get_mutations_in_primer_sites(defining_mutations, primers = primers): 
+    for index, row in defining_mutations.iterrows(): 
+        for index, primer in primers.iterrows(): 
+            if row["nucleotide_position"] in range(primer["start"], primer["end"], 
+                print(primer)
+                print(row["amino acid"])
+
+## gives a print out of any of the associated SNPs located in a primer site
+## code could be altered to output this into a dictionary/dataframe
+
+
