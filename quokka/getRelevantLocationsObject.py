@@ -78,8 +78,8 @@ for l in lineages:
         print(i)
     print()
 
-
-pickle.dump(final_positions, "relevantpositions.pickle")
+out_loc = os.path.join(sys.argv[4],"relevantpositions.pickle")
+pickle.dump(final_positions, out_loc)
 
 
 def get_lineage_sequences(designation_list, lineage_of_interest, designation_index, reference_sequence): 
