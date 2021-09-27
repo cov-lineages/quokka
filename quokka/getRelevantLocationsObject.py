@@ -4,7 +4,7 @@ import csv
 import re
 import pickle
 import sys
-
+import os
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio import AlignIO
@@ -78,8 +78,10 @@ for l in lineages:
         print(i)
     print()
 
-out_loc = os.path.join(sys.argv[4],"relevantpositions.pickle")
-pickle.dump(final_positions, out_loc)
+out_loc = os.path.join(sys.argv[4],"relevantPositions.pickle")
+
+with open(out_loc, 'wb') as pickle_file:
+    pickle.dump(final_positions, pickle_file)
 
 
 def get_lineage_sequences(designation_list, lineage_of_interest, designation_index, reference_sequence): 
