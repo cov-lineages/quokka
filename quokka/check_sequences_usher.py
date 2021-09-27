@@ -55,15 +55,18 @@ if __name__ == "__main__":
             for line in fileobject:
                 if node + ":" in line.strip():
                     clade.append(re.sub("\\|.*", "", line.strip().split("\t")[0]))
-    
+
+    #Convert the clade to a set
+    cladeSet = set(clade)
+
     #Iterate through the designated sequences, check if they are designated to the lineage of interest and not in the clade or designated to
     #another lineage and in the clade
     with open(args.d) as fileobject:
         next(fileobject)
         for line in fileobject:
-            if (line.strip().split(",")[1] == lineage) and (line.strip().split(",")[0] not in clade):
+            if (line.strip().split(",")[1] == lineage) and (line.strip().split(",")[0] not in cladeSet):
                 outFileOutside.write(line.strip().split(",")[0] + "\n")
-            if (line.strip().split(",")[1] != lineage) and (line.strip().split(",")[0] in clade):
+            if (line.strip().split(",")[1] != lineage) and (line.strip().split(",")[0] in cladeSet) and (lineage not in line.strip().split(",")[1]):
                 outFileInside.write(line.strip().split(",")[0] + "\n")
     
     outFileOutside.close()
