@@ -47,7 +47,7 @@ def lineage_associated_SNPs(designation_list, lineage_of_interest, designation_i
     
     info = SummaryInfo(sequences_lineage)
     consensus_sequence =  info.gap_consensus(
-    threshold=0.95, 
+    threshold=0.50, 
     ambiguous='N')
         
     nuc_position = []
