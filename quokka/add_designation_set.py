@@ -85,13 +85,14 @@ if __name__ == "__main__":
     uA = getNewAssignments(args.m, currentD, args.l)
     print(str(len(uA)) + " sequences currently assigned to " + args.l + " that are not designated")
 
-    #Extract a random subsample of these sequences
-    ss = random.sample(uA, int(args.n))
-
     #Filter random subsample
-    print("Filtering " + args.n + " sequences")
-    filteredNames = filter_sequence_names(ss, args.s)
+    print("Filtering " + str(len(uA)) + " sequences")
+    filteredNames = filter_sequence_names(uA, args.s)
     print(str(len(filteredNames)) + " sequences post-filter")
+
+    #Extract a random subsample of these sequences
+    ss = random.sample(list(filteredNames), int(args.n))
+    print(str(len(ss)) + " sequences randomly selected")
 
     lineage = args.l
 
@@ -102,7 +103,7 @@ if __name__ == "__main__":
         for l in f:
             outFile.write(l)
     
-    for s in filteredNames:
+    for s in ss:
         outFile.write(s + "," + lineage + "\n")
     
     outFile.close()
